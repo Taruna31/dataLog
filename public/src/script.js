@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const inputValue = document.getElementById('value');
     const btn = document.getElementById('btn');
-    const url = 'http://localhost:3000/download';
+    const url = '/download';
 
     btn.addEventListener('click', function (e) {
         e.preventDefault();

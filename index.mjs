@@ -2,19 +2,25 @@ import express from 'express';
 import fetch from 'node-fetch';
 import xlsx from 'json-as-xlsx';
 import fs from 'fs';
-// import path from 'path';
-// import { fileURLToPath } from 'url';
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const app = express();
 
 const THINGSBOARD_URL = 'https://demo.thingsboard.io'; 
 const DEVICE_ID = 'a5c60e50-4469-11ef-91aa-4b5b857befbc'; 
 const ACCESS_TOKEN = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqYWtldGVzdDc3QGdtYWlsLmNvbSIsInVzZXJJZCI6Ijk4ZmUyMmYwLTM1NWMtMTFlZi05MWFhLTRiNWI4NTdiZWZiYyIsInNjb3BlcyI6WyJURU5BTlRfQURNSU4iXSwic2Vzc2lvbklkIjoiNmVmZGIwMWYtNWQzOS00MTU1LWEwMTMtZmZkMWRkY2ZiZDlkIiwiZXhwIjoxNzIzNzk0MTczLCJpc3MiOiJ0aGluZ3Nib2FyZC5pbyIsImlhdCI6MTcyMTk5NDE3MywiZmlyc3ROYW1lIjoiSmFrZSIsImxhc3ROYW1lIjoiIiwiZW5hYmxlZCI6dHJ1ZSwicHJpdmFjeVBvbGljeUFjY2VwdGVkIjp0cnVlLCJpc1B1YmxpYyI6ZmFsc2UsInRlbmFudElkIjoiOTc5OWQ4MDAtMzU1Yy0xMWVmLTkxYWEtNGI1Yjg1N2JlZmJjIiwiY3VzdG9tZXJJZCI6IjEzODE0MDAwLTFkZDItMTFiMi04MDgwLTgwODA4MDgwODA4MCJ9.XlF0SrRRdzZCHxF3rCZkADm-4KfieuyLq9YXnKVRrFUm-YIj8pDLxuw_dGlbO3W6y2A7MritZLi0-eMuWFyUjA'; 
 
+app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  });
 
 app.post('/', (req, res) => {
     const parcel = req.body.parcel;
